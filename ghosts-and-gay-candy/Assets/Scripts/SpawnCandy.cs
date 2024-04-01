@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SpawnCandy : MonoBehaviour
 {
-    //Spawn
     public GameObject obs;
     public float maxX;
     public float minX;
@@ -28,5 +27,10 @@ public class SpawnCandy : MonoBehaviour
         float Y = Random.Range(minY, maxY);
 
         Instantiate(obs, transform.position + new Vector3(X, Y, 0), transform.rotation);
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        Debug.Log("Collision detected");
     }
 }
