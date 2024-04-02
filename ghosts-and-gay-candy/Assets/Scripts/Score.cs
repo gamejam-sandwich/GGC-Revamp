@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Score : MonoBehaviour
 {
     public static Score instance;
+    public static int currentScore;
+    public static int finalScore;
+
     public TMP_Text scoreText;
-    public int currentScore = 0;
     public AudioSource plusSound;
 
     void Awake()
@@ -18,7 +21,21 @@ public class Score : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scoreText.text = "Score: " + currentScore.ToString();
+        var currentScene = SceneManager.GetActiveScene().name;
+        if(currentScene == "SampleScene")
+        {
+            currentScore = 0;
+            scoreText.text = "Score: " + currentScore.ToString();
+        }
+        else
+        {
+            scoreText.text = "You collected: " + finalScore.ToString() + " pieces!";
+        }
+    }
+
+    public void ChangeScene()
+    {
+        SceneManager.LoadScene("SampleScene");
     }
 
     public void IncreaseScore(int v)
@@ -26,5 +43,6 @@ public class Score : MonoBehaviour
         currentScore += v;
         plusSound.Play();
         scoreText.text = "Score: " + currentScore.ToString();
+        finalScore = currentScore;
     }
 }

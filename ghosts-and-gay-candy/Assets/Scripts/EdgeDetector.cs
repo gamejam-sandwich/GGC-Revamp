@@ -38,7 +38,6 @@ public class EdgeDetector : MonoBehaviour
         {
             isFalling = true;
             SetTF(warn, true);
-            Debug.Log("isFalling is now " + isFalling);
         }
     } 
 

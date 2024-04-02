@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 mvmt;
     bool canTeleport;
 
-    public float setX;
+    //public float setX;
     public float setY;
     public float setZ;
 
@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
         mvmt.x = Input.GetAxisRaw("Horizontal");
         if (Input.GetKeyDown(KeyCode.Space) && canTeleport)
         {
-            rb.transform.position = new Vector3(setX,setY,setZ);
+            rb.transform.position = new Vector3(Random.Range(-1f,1.5f),setY,setZ);
             telSound.Play();
         }
     }
