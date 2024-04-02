@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class EdgeDetector : MonoBehaviour
 {
+    public static EdgeDetector instance;
     [SerializeField] GameObject particle;
     public GameObject warn;
-    private IEnumerator coroutine;
+    public bool isFalling;
 
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         SetTF(particle, false);
+        isFalling = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isFalling)
         {
             SetTF(warn, false);
             SetTF(particle, true);
@@ -28,11 +31,14 @@ public class EdgeDetector : MonoBehaviour
             StartCoroutine(WaitBeforeDestroy());
         }
     }
+
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
+            isFalling = true;
             SetTF(warn, true);
+            Debug.Log("isFalling is now " + isFalling);
         }
     } 
 
@@ -45,5 +51,6 @@ public class EdgeDetector : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         SetTF(particle, false);
+        isFalling = false;
     }
 }

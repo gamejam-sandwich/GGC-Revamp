@@ -8,6 +8,7 @@ public class Score : MonoBehaviour
     public static Score instance;
     public TMP_Text scoreText;
     public int currentScore = 0;
+    public AudioSource plusSound;
 
     void Awake()
     {
@@ -23,6 +24,7 @@ public class Score : MonoBehaviour
     public void IncreaseScore(int v)
     {
         currentScore += v;
+        plusSound.Play();
         scoreText.text = "Score: " + currentScore.ToString();
     }
 }
